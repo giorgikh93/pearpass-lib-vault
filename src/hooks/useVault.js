@@ -86,13 +86,6 @@ export const useVault = ({ variables } = {}) => {
   }
 
   const addDevice = async (device) => {
-    const hasDeviceAdded = data?.devices?.some((d) => d.name === device)
-
-    if (hasDeviceAdded) {
-      logger.log('Device already added to vault')
-      return
-    }
-
     const { error: createError } = await dispatch(addDeviceAction(device))
 
     await refetch()
