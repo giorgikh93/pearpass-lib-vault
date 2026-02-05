@@ -156,7 +156,12 @@ export const vaultSlice = createSlice({
       })
       .addCase(addDevice.fulfilled, (state, action) => {
         state.isDeviceLoading = false
-        state.data.devices = action?.payload ?? []
+
+        const currentDevices = state.data?.devices ?? []
+
+        state.data.devices = action?.payload
+          ? [...currentDevices, action.payload]
+          : currentDevices
       })
       .addCase(addDevice.rejected, (state, action) => {
         logger.error(`Action addDevice error:`, JSON.stringify(action.error))

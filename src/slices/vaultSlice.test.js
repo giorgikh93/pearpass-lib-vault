@@ -382,7 +382,30 @@ describe('vaultSlice', () => {
       }
       store.dispatch({ type: addDevice.fulfilled.type, payload: mockDevice })
       expect(store.getState().vault.isDeviceLoading).toBe(false)
-      expect(store.getState().vault.data.devices).toEqual(mockDevice)
+      expect(store.getState().vault.data.devices).toEqual([mockDevice])
+    })
+
+    it('should append devices on multiple fulfilled actions', () => {
+      const firstDevice = {
+        id: 'device1',
+        vaultId: '123',
+        data: 'ios',
+        createdAt: Date.now()
+      }
+      const secondDevice = {
+        id: 'device2',
+        vaultId: '123',
+        data: 'android',
+        createdAt: Date.now()
+      }
+
+      store.dispatch({ type: addDevice.fulfilled.type, payload: firstDevice })
+      store.dispatch({ type: addDevice.fulfilled.type, payload: secondDevice })
+
+      expect(store.getState().vault.data.devices).toEqual([
+        firstDevice,
+        secondDevice
+      ])
     })
 
     it('should handle rejected state', () => {
