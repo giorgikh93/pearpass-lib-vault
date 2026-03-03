@@ -6,6 +6,17 @@ import {
 } from './validateAndPrepareCustomFields'
 import { fileSchema } from '../schemas/fileSchema'
 
+export const otpSchema = Validator.object({
+  secret: Validator.string().required(),
+  type: Validator.string().required(),
+  algorithm: Validator.string().required(),
+  digits: Validator.number().required(),
+  period: Validator.number(),
+  counter: Validator.number(),
+  issuer: Validator.string(),
+  label: Validator.string()
+})
+
 export const credentialSchema = Validator.object({
   authenticatorAttachment: Validator.string().required(),
   clientExtensionResults: Validator.object({
@@ -38,7 +49,8 @@ export const loginSchema = Validator.object({
   note: Validator.string(),
   websites: Validator.array().items(Validator.string().required()),
   customFields: Validator.array().items(customFieldSchema),
-  attachments: Validator.array().items(fileSchema)
+  attachments: Validator.array().items(fileSchema),
+  otp: otpSchema
 })
 
 export const validateAndPrepareLoginData = (login) => {
@@ -52,7 +64,8 @@ export const validateAndPrepareLoginData = (login) => {
     note: login.note,
     websites: login.websites,
     customFields: validateAndPrepareCustomFields(login.customFields),
-    attachments: login.attachments
+    attachments: login.attachments,
+    otp: login.otp
   }
 
   const errors = loginSchema.validate(loginData)
