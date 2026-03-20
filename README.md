@@ -11,6 +11,7 @@ Without a proper client implementation, the vault operations cannot be performed
 ## Table of Contents
 
 - [Features](#features)
+- [Security Notice](#security-notice)
 - [Installation](#installation)
 - [Usage Examples](#usage-examples)
 - [Dependencies](#dependencies)
@@ -36,12 +37,17 @@ Without a proper client implementation, the vault operations cannot be performed
   - Full test coverage with Jest
   - Mocked clients for reliable testing
 
+## Security Notice
+
+1. To ensure the security and integrity of your projects, please note that official PearPass packages are distributed exclusively through our GitHub organization.
+2. Any packages with similar names found on the npm registry or other third-party package managers are not affiliated with PearPass and should be strictly avoided. We recommend installing directly from this repository to ensure you are using the verified, open-source version.
+
 ## Installation
 
 Install via npm:
 
 ```bash
-npm install pearpass-lib-vault
+npm install git+https://github.com/tetherto/pearpass-lib-vault.git
 ```
 
 ## Usage Examples
@@ -49,13 +55,13 @@ npm install pearpass-lib-vault
 ### Initializing the Library
 
 ```javascript
-import { setPearpassVaultClient } from 'pearpass-lib-vault';
+import { setPearpassVaultClient } from '@tetherto/pearpass-lib-vault';
 
 // Set up the vault client with your implementation
 // Choose one of the client implementations:
-import { createPearpassVaultClient } from 'pearpass-lib-vault-bare';
+import { createPearpassVaultClient } from '@tetherto/pearpass-lib-vault-bare';
 // OR
-import { createPearpassVaultClient } from 'pearpass-lib-vault-desktop'
+import { createPearpassVaultClient } from '@tetherto/pearpass-lib-vault-desktop'
 
 // Initialize the appropriate client
 const  vaultClient  = createPearpassVaultClient();
@@ -67,7 +73,7 @@ setPearpassVaultClient(vaultClient);
 ### Creating a Master Password
 
 ```javascript
-import { createMasterPassword } from 'pearpass-lib-vault';
+import { createMasterPassword } from '@tetherto/pearpass-lib-vault';
 
 // Create a master password to secure all vaults
 const encryptionData = await createMasterPassword('your-secure-password');
@@ -77,7 +83,7 @@ const encryptionData = await createMasterPassword('your-secure-password');
 
 ```jsx
 import React from 'react';
-import { useVaults } from 'pearpass-lib-vault';
+import { useVaults } from '@tetherto/pearpass-lib-vault';
 
 function VaultManager() {
   const { 
@@ -98,7 +104,7 @@ function VaultManager() {
 
 ```jsx
 import React from 'react';
-import { useCreateFolder, useFolders } from 'pearpass-lib-vault';
+import { useCreateFolder, useFolders } from '@tetherto/pearpass-lib-vault';
 
 function FolderManager() {
   const { data: folders, isLoading } = useFolders({
@@ -122,7 +128,7 @@ function FolderManager() {
 
 ```jsx
 import React, { useState } from 'react';
-import { useCreateRecord, useRecords, useUpdateRecord } from 'pearpass-lib-vault';
+import { useCreateRecord, useRecords, useUpdateRecord } from '@tetherto/pearpass-lib-vault';
 
 function RecordManager({ vaultId }) {
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -173,25 +179,14 @@ function RecordManager({ vaultId }) {
 - [react-redux](https://react-redux.js.org/)
 - [redux-toolkit](https://redux-toolkit.js.org/)
 
-## Depended Submodules
-
-The following sibling submodules must be present in the workspace (they are not declared as npm dependencies):
-
-- [`pearpass-utils-password-check`](../pearpass-utils-password-check)
-- [`pear-apps-utils-generate-unique-id`](../pear-apps-utils-generate-unique-id)
-- [`pear-apps-utils-pattern-search`](../pear-apps-utils-pattern-search)
-- [`pear-apps-utils-validator`](../pear-apps-utils-validator)
-- [`pearpass-lib-constants`](../pearpass-lib-constants)
-- [`tether-dev-docs`](../tether-dev-docs)
-
 ## Related Projects
 
-- [pearpass-app-mobile](https://github.com/tetherto/pearpass-app-mobile) - A mobile app for PearPass, a password manager
-- [pearpass-app-desktop](https://github.com/tetherto/pearpass-app-desktop) - A desktop app for PearPass, a password manager
-- [pearpass-lib-vault-bare](https://github.com/tetherto/pearpass-lib-vault) - Client implementation for React Native applications
-- [pearpass-lib-vault-desktop](https://github.com/tetherto/pearpass-lib-desktop) - Client implementation for Pear desktop applications
-- [pear-apps-utils-validator](https://github.com/tetherto/pear-apps-utils-validator) - A library for validating data in Pear applications
-- [tether-dev-docs](https://github.com/tetherto/tether-dev-docs) - Documentations and guides for developers
+- [@tetherto/pearpass-app-mobile](https://github.com/tetherto/pearpass-app-mobile) - A mobile app for PearPass, a password manager
+- [@tetherto/pearpass-app-desktop](https://github.com/tetherto/pearpass-app-desktop) - A desktop app for PearPass, a password manager
+- [@tetherto/pearpass-lib-vault-bare](https://github.com/tetherto/pearpass-lib-vault) - Client implementation for React Native applications
+- [@tetherto/pearpass-lib-vault-desktop](https://github.com/tetherto/pearpass-lib-desktop) - Client implementation for Pear desktop applications
+- [@tetherto/pear-apps-utils-validator](https://github.com/tetherto/pear-apps-utils-validator) - A library for validating data in Pear applications
+- [@tetherto/tether-dev-docs](https://github.com/tetherto/tether-dev-docs) - Documentations and guides for developers
 
 ## License
 
